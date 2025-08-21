@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { LeaderboardTable } from "@/components/LeaderboardTable";
 import { getStartups, getTopMovers } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowUp, Badge, Users } from "lucide-react";
+import { ArrowUp, Badge, Users, Info } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -15,10 +15,10 @@ export default function Home() {
       <main className="container mx-auto px-4 py-12 flex-grow">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-bold font-headline tracking-tight">
-            The Live Heat Index of Korean Startups
+            The Unwritten Stories of Korean Startups
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mt-4 max-w-3xl mx-auto">
-            FounderRank is a real-time leaderboard of Korean startups, ranked by verifiable milestones.
+            FounderRank tracks the small wins and giant leaps of founders in real-time. This isn't just data. It's the journey.
           </p>
         </div>
 
@@ -48,10 +48,27 @@ export default function Home() {
         <section className="mb-12">
           <div className="mb-6">
             <h2 className="text-3xl font-bold font-headline">Leaderboard</h2>
-            <p className="text-muted-foreground mt-1">Demo data. Not live yet. But you get the idea.</p>
+            <p className="text-muted-foreground mt-1">This is a living list, fueled by verified milestones from founders like you.</p>
           </div>
           <LeaderboardTable startups={startups} />
         </section>
+
+        <section className="mb-16">
+          <Card className="bg-card/50">
+            <CardHeader>
+              <CardTitle className="font-headline flex items-center">
+                <Info className="w-5 h-5 mr-3 text-primary"/>
+                About FounderRank
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-muted-foreground">
+              <p>This isn't for VCs. It's for the founders, the makers, the ones in the arena.</p>
+              <p>We measure progress, not just hype. A new hire, a product launch, a country expansion—these are the milestones that matter. They tell the real story. By making these small wins visible and celebrating them, we create a different kind of status, a different kind of community.</p>
+              <p>This is an invitation. Share your journey. See the progress. Connect with others on the same path. Let's make something remarkable, together.</p>
+            </CardContent>
+          </Card>
+        </section>
+
       </main>
       <footer className="py-8 border-t border-border/40">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
