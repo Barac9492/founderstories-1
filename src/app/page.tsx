@@ -18,7 +18,7 @@ export default function Home() {
             The Unwritten Stories of Korean Startups
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mt-4 max-w-3xl mx-auto">
-            FounderRank tracks the small wins and giant leaps of founders in real-time. This isn't just data. It's the journey.
+            FounderStories tracks the small wins and giant leaps of founders in real-time. This isn't just data. It's the journey.
           </p>
         </div>
 
@@ -58,7 +58,7 @@ export default function Home() {
             <CardHeader>
               <CardTitle className="font-headline flex items-center">
                 <Info className="w-5 h-5 mr-3 text-primary"/>
-                About FounderRank
+                About FounderStories
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-muted-foreground">
