@@ -31,15 +31,19 @@ import {
 } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { cn } from "@/lib/utils";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Loader2 } from "lucide-react";
 import { Calendar } from "./ui/calendar";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
+import { getStartups } from "@/lib/data";
+import { submitMilestone } from "@/ai/flows/submit-milestone";
+import { useState } from "react";
 
 const milestoneSchema = z.object({
-  milestoneType: z.enum(["funding", "hiring", "expansion", "users", "press"]),
+  startupName: z.string({ required_error: "Please select a startup." }),
+  milestoneType: z.enum(["funding", "hiring", "expansion", "users", "press"], { required_error: "Please select a milestone type."}),
   description: z.string().min(10, "Description must be at least 10 characters.").max(280),
-  date: z.date(),
+  date: z.date({ required_error: "Please select a date."}),
   proofLink: z.string().url("Please enter a valid URL."),
 });
 
@@ -52,18 +56,39 @@ type Props = {
 
 export function SubmitMilestoneDialog({ open, onOpenChange }: Props) {
   const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const startups = getStartups();
   const form = useForm<MilestoneFormValues>({
     resolver: zodResolver(milestoneSchema),
   });
 
-  const onSubmit = (data: MilestoneFormValues) => {
-    console.log(data);
-    toast({
-      title: "Milestone Submitted!",
-      description: "Your milestone is now pending verification. Thank you!",
-    });
-    onOpenChange(false);
-    form.reset();
+  const onSubmit = async (data: MilestoneFormValues) => {
+    setLoading(true);
+    try {
+      const result = await submitMilestone({
+        ...data,
+        date: format(data.date, "yyyy-MM-dd"),
+      });
+
+      if (result.success) {
+        toast({
+          title: "Milestone Submitted!",
+          description: "Your milestone is now pending verification. Thank you!",
+        });
+        onOpenChange(false);
+        form.reset();
+      } else {
+        throw new Error(result.message);
+      }
+    } catch (error) {
+       toast({
+        variant: "destructive",
+        title: "Submission Failed",
+        description: "Could not submit your milestone. Please try again later.",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -79,6 +104,26 @@ export function SubmitMilestoneDialog({ open, onOpenChange }: Props) {
             </DialogHeader>
 
             <div className="space-y-4">
+               <FormField
+                control={form.control}
+                name="startupName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Startup</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a startup" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {startups.map(s => <SelectItem key={s.id} value={s.name}>{s.name}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="milestoneType"
@@ -172,10 +217,13 @@ export function SubmitMilestoneDialog({ open, onOpenChange }: Props) {
               />
             </div>
             <DialogFooter>
-              <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
+              <Button type="button" variant="ghost" onClick={() => onOpenChange(false)} disabled={loading}>
                 Cancel
               </Button>
-              <Button type="submit">Submit for Verification</Button>
+              <Button type="submit" disabled={loading}>
+                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Submit for Verification
+              </Button>
             </DialogFooter>
           </form>
         </Form>
