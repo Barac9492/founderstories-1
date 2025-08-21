@@ -3,15 +3,16 @@ import { LeaderboardTable } from "@/components/LeaderboardTable";
 import { getStartups, getTopMovers } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUp, Badge, Users } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   const startups = getStartups();
   const topMovers = getTopMovers();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Header />
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 flex-grow">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-bold font-headline tracking-tight">
             The Live Heat Index of Korean Startups
@@ -44,9 +45,17 @@ export default function Home() {
            </div>
          </section>
         )}
-
-        <LeaderboardTable startups={startups} />
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold font-headline mb-2">Leaderboard</h2>
+           <p className="text-muted-foreground mb-4">Demo data. Not live yet. But you get the idea.</p>
+          <LeaderboardTable startups={startups} />
+        </section>
       </main>
+      <footer className="py-6 border-t border-border/40">
+        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
+          <p>Built by a solo indie hacker. Follow the journey on <a href="https://x.com/levelsio" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">X (formerly Twitter)</a>.</p>
+        </div>
+      </footer>
     </div>
   );
 }
