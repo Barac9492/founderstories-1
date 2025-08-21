@@ -15,8 +15,8 @@ type Props = {
   };
 };
 
-export default function StartupProfilePage({ params }: Props) {
-  const startup = getStartupBySlug(params.slug);
+export default async function StartupProfilePage({ params }: Props) {
+  const startup = await getStartupBySlug(params.slug);
 
   if (!startup) {
     notFound();

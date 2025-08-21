@@ -10,6 +10,8 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, query, where, getDocs, limit } from 'firebase/firestore';
 
 const SubmitMilestoneInputSchema = z.object({
   startupName: z.string().describe('The name of the startup.'),
@@ -42,9 +44,27 @@ const submitMilestoneFlow = ai.defineFlow(
     outputSchema: SubmitMilestoneOutputSchema,
   },
   async input => {
-    // In a real application, you would save this to a database
-    // and queue it for verification.
-    console.log('Received milestone submission:', input);
+    
+    const startupsRef = collection(db, "startups");
+    const q = query(startupsRef, where("name", "==", input.startupName), limit(1));
+    const startupSnapshot = await getDocs(q);
+
+    if (startupSnapshot.empty) {
+        return {
+            success: false,
+            message: "Startup not found."
+        }
+    }
+    const startupId = startupSnapshot.docs[0].id;
+    const milestonesCollection = collection(db, `startups/${startupId}/milestones`);
+
+    await addDoc(milestonesCollection, {
+        type: input.milestoneType,
+        description: input.description,
+        date: input.date,
+        link: input.proofLink,
+        verified: false, // Milestones are unverified by default
+    });
 
     // The AI part can be expanded here later to analyze the proofLink,
     // verify the description, and calculate its impact on the heat score.

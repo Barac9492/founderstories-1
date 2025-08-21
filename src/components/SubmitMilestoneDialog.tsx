@@ -35,9 +35,9 @@ import { CalendarIcon, Loader2 } from "lucide-react";
 import { Calendar } from "./ui/calendar";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
-import { getStartups } from "@/lib/data";
+import { getStartupOptions } from "@/lib/data";
 import { submitMilestone } from "@/ai/flows/submit-milestone";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const milestoneSchema = z.object({
   startupName: z.string({ required_error: "Please select a startup." }),
@@ -57,7 +57,16 @@ type Props = {
 export function SubmitMilestoneDialog({ open, onOpenChange }: Props) {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const startups = getStartups();
+  const [startups, setStartups] = useState<{id: string, name: string}[]>([]);
+  
+  useEffect(() => {
+    async function fetchStartups() {
+        const startupOptions = await getStartupOptions();
+        setStartups(startupOptions);
+    }
+    fetchStartups();
+  }, []);
+
   const form = useForm<MilestoneFormValues>({
     resolver: zodResolver(milestoneSchema),
   });

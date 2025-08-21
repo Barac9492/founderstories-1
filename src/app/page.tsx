@@ -5,9 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUp, Badge, Users, Info } from "lucide-react";
 import Link from "next/link";
 
-export default function Home() {
-  const startups = getStartups();
-  const topMovers = getTopMovers();
+export default async function Home() {
+  const startups = await getStartups();
+  const topMovers = await getTopMovers();
 
   return (
     <div className="min-h-screen bg-background flex flex-col">

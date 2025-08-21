@@ -1,139 +1,66 @@
-import type { Startup } from "./types";
+import type { Startup, Milestone } from "./types";
+import { db } from "./firebase";
+import { collection, getDocs, query, where, limit, orderBy, getDoc, doc } from "firebase/firestore";
 
-const startups: Startup[] = [
-  {
-    id: "1",
-    slug: "scatter-lab",
-    name: "Scatter Lab",
-    logo: "https://placehold.co/40x40/fca5a5/000000.png?text=S",
-    sector: "AI",
-    tagline: "Building emotionally intelligent AI companions.",
-    rank: 1,
-    latestMilestone: {
-      id: "m1",
-      type: "users",
-      description: "AI companion 'Luda' reached 1 million registered users",
-      date: "2025-08-15",
-      verified: true,
-      link: "#",
-    },
-    deltaWeekly: 2,
-    heatScore: 94,
-    scoreComponents: { funding: 20, expansion: 10, hiring: 25, press: 19, users: 20 },
-    milestones: [
-      { id: "m1-1", type: "users", description: "AI companion 'Luda' reached 1 million registered users", date: "2025-08-15", verified: true, link: "#" },
-      { id: "m1-2", type: "funding", description: "Closed a $15M Series B round", date: "2025-06-30", verified: true, link: "#" },
-      { id: "m1-3", type: "press", description: "Featured in major tech publication for ethical AI design", date: "2025-05-10", verified: true, link: "#" },
-    ],
-  },
-  {
-    id: "2",
-    slug: "karrot",
-    name: "Karrot",
-    logo: "https://placehold.co/40x40/fdba74/000000.png?text=K",
-    sector: "Marketplace",
-    tagline: "The hyperlocal community app for your neighborhood.",
-    rank: 2,
-    latestMilestone: {
-      id: "m2",
-      type: "expansion",
-      description: "Launched 'Karrot Pay' in beta for seamless local transactions",
-      date: "2025-07-28",
-      verified: true,
-      link: "#",
-    },
-    deltaWeekly: 0,
-    heatScore: 91,
-    scoreComponents: { funding: 25, expansion: 25, hiring: 16, press: 10, users: 15 },
-     milestones: [
-      { id: "m2-1", type: "expansion", description: "Launched 'Karrot Pay' in beta for seamless local transactions", date: "2025-07-28", verified: true, link: "#" },
-      { id: "m2-2", type: "users", description: "Crossed 30 million cumulative sign-ups in Korea", date: "2025-04-19", verified: true, link: "#" },
-      { id: "m2-3", type: "hiring", description: "Opened new engineering hub in Pangyo", date: "2025-02-01", verified: true, link: "#" },
-    ],
-  },
-  {
-    id: "3",
-    slug: "class101",
-    name: "Class101",
-    logo: "https://placehold.co/40x40/86efac/000000.png?text=C",
-    sector: "Edutech",
-    tagline: "The platform for online creative classes.",
-    rank: 3,
-    latestMilestone: {
-      id: "m3",
-      type: "hiring",
-      description: "Hired a new CTO to lead global platform development",
-      date: "2025-08-05",
-      verified: true,
-      link: "#",
-    },
-    deltaWeekly: 1,
-    heatScore: 88,
-    scoreComponents: { funding: 30, expansion: 10, hiring: 20, press: 8, users: 20 },
-     milestones: [
-      { id: "m3-1", type: "hiring", description: "Hired a new CTO to lead global platform development", date: "2025-08-05", verified: true, link: "#" },
-      { id: "m3-2", type: "expansion", description: "Launched first cohort of classes in Japanese", date: "2025-06-20", verified: true, link: "#" },
-      { id: "m3-3", type: "funding", description: "Secured strategic investment from a global education fund", date: "2025-03-15", verified: true, link: "#" },
-    ],
-  },
-  {
-    id: "4",
-    slug: "riiid",
-    name: "Riiid",
-    logo: "https://placehold.co/40x40/a5b4fc/000000.png?text=R",
-    sector: "Edutech",
-    tagline: "AI-powered personalized learning solutions.",
-    rank: 4,
-    latestMilestone: {
-      id: "m4",
-      type: "press",
-      description: "Published research on AI model accuracy in a top academic journal",
-      date: "2025-08-18",
-      verified: true,
-      link: "#",
-    },
-    deltaWeekly: -2,
-    heatScore: 85,
-    scoreComponents: { funding: 25, expansion: 5, hiring: 15, press: 30, users: 10 },
-     milestones: [
-      { id: "m4-1", type: "press", description: "Published research on AI model accuracy in a top academic journal", date: "2025-08-18", verified: true, link: "#" },
-      { id: "m4-2", type: "users", description: "Reached 5 million cumulative users for its public test prep app", date: "2025-05-25", verified: true, link: "#" },
-    ],
-  },
-  {
-    id: "5",
-    slug: "wanted-lab",
-    name: "Wanted Lab",
-    logo: "https://placehold.co/40x40/fcd34d/000000.png?text=W",
-    sector: "HR Tech",
-    tagline: "AI-based recruitment and career development platform.",
-    rank: 5,
-    latestMilestone: {
-      id: "m5",
-      type: "expansion",
-      description: "Acquired a smaller niche job board for designers",
-      date: "2025-07-30",
-      verified: false,
-      link: "#",
-    },
-    deltaWeekly: 0,
-    heatScore: 81,
-    scoreComponents: { funding: 15, expansion: 25, hiring: 21, press: 10, users: 10 },
-     milestones: [
-        { id: "m5-1", type: "expansion", description: "Acquired a smaller niche job board for designers", date: "2025-07-30", verified: false, link: "#" },
-        { id: "m5-2", type: "hiring", description: "Announced plan to hire 50 new engineers in H2", date: "2025-06-15", verified: true, link: "#" },
-     ],
-  },
-];
+const startupsCollection = collection(db, 'startups');
 
-export const getStartups = (): Startup[] => {
-  return startups.sort((a, b) => a.rank - b.rank);
+export const getStartups = async (): Promise<Startup[]> => {
+    const snapshot = await getDocs(query(startupsCollection, orderBy("rank")));
+    const startups = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Startup));
+    
+    // In a real app, latestMilestone would be handled more efficiently,
+    // maybe stored directly on the startup document.
+    // For now, we'll fetch it separately for simplicity.
+    for (const startup of startups) {
+        const milestonesCollection = collection(db, `startups/${startup.id}/milestones`);
+        const milestoneSnapshot = await getDocs(query(milestonesCollection, orderBy("date", "desc"), limit(1)));
+        if (!milestoneSnapshot.empty) {
+            startup.latestMilestone = { id: milestoneSnapshot.docs[0].id, ...milestoneSnapshot.docs[0].data() } as Milestone;
+        }
+    }
+    return startups;
 };
 
-export const getStartupBySlug = (slug: string): Startup | undefined => {
-  return startups.find((s) => s.slug === slug);
+export const getStartupBySlug = async (slug: string): Promise<Startup | undefined> => {
+    const q = query(startupsCollection, where("slug", "==", slug), limit(1));
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+        return undefined;
+    }
+
+    const startupDoc = snapshot.docs[0];
+    const startup = { id: startupDoc.id, ...startupDoc.data() } as Startup;
+
+    const milestonesCollection = collection(db, `startups/${startup.id}/milestones`);
+    const milestonesSnapshot = await getDocs(query(milestonesCollection, orderBy("date", "desc")));
+    
+    startup.milestones = milestonesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Milestone));
+    
+    if (startup.milestones.length > 0) {
+        startup.latestMilestone = startup.milestones[0];
+    }
+
+    return startup;
 };
 
-export const getTopMovers = (): Startup[] => {
-    return startups.filter(s => s.deltaWeekly > 0).sort((a, b) => b.deltaWeekly - a.deltaWeekly).slice(0, 3);
+export const getTopMovers = async (): Promise<Startup[]> => {
+    const q = query(startupsCollection, where("deltaWeekly", ">", 0), orderBy("deltaWeekly", "desc"), limit(3));
+    const snapshot = await getDocs(q);
+    const startups = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Startup));
+
+     for (const startup of startups) {
+        const milestonesCollection = collection(db, `startups/${startup.id}/milestones`);
+        const milestoneSnapshot = await getDocs(query(milestonesCollection, orderBy("date", "desc"), limit(1)));
+        if (!milestoneSnapshot.empty) {
+            startup.latestMilestone = { id: milestoneSnapshot.docs[0].id, ...milestoneSnapshot.docs[0].data() } as Milestone;
+        }
+    }
+    return startups;
+}
+
+// This function is now async for consistency, even if it could fetch from a local cache in the future.
+export const getStartupOptions = async (): Promise<{id: string, name: string}[]> => {
+    const snapshot = await getDocs(query(startupsCollection, orderBy("name")));
+    return snapshot.docs.map(doc => ({ id: doc.id, name: doc.data().name as string }));
 }
