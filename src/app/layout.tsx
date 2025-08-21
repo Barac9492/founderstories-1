@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'FounderRank',
+  title: 'FounderStories',
   description: 'The Live Heat Index of Korean Startups',
 };
 
