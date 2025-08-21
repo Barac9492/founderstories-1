@@ -1,3 +1,6 @@
+
+'use client';
+
 import { getStartupBySlug } from "@/lib/data";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -7,7 +10,12 @@ import { Button } from "@/components/ui/button";
 import { MilestonesFeed } from "@/components/MilestonesFeed";
 import { HeatScoreBreakdown } from "@/components/HeatScoreBreakdown";
 import { SocialPostGenerator } from "@/components/SocialPostGenerator";
-import { Globe, Link as LinkIcon, Briefcase } from "lucide-react";
+import { Globe, Link as LinkIcon, Briefcase, Search, Loader2 } from "lucide-react";
+import type { Startup } from "@/lib/types";
+import { findAndVerifyMilestones } from "@/ai/flows/find-and-verify-milestones";
+import { useToast } from "@/hooks/use-toast";
+import { useState, useEffect } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Props = {
   params: {
@@ -15,11 +23,84 @@ type Props = {
   };
 };
 
-export default async function StartupProfilePage({ params }: Props) {
-  const startup = await getStartupBySlug(params.slug);
+function ProfilePageSkeleton() {
+    return (
+     <div className="min-h-screen bg-background">
+        <Header />
+        <main className="container mx-auto px-4 py-12">
+            <div className="flex flex-col md:flex-row items-start gap-8 mb-12">
+                <Skeleton className="w-[120px] h-[120px] rounded-2xl" />
+                <div className="flex-grow pt-2 space-y-3">
+                    <Skeleton className="h-12 w-1/2" />
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-5 w-1/3" />
+                </div>
+            </div>
+             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2 space-y-8">
+                    <Card><CardHeader><CardTitle><Skeleton className="h-8 w-1/4" /></CardTitle></CardHeader><CardContent><Skeleton className="h-40 w-full" /></CardContent></Card>
+                </div>
+                <div className="space-y-8">
+                    <Card><CardHeader><CardTitle><Skeleton className="h-8 w-1/2" /></CardTitle></CardHeader><CardContent><Skeleton className="h-24 w-full" /></CardContent></Card>
+                    <Card><CardHeader><CardTitle><Skeleton className="h-8 w-1/2" /></CardTitle></CardHeader><CardContent><Skeleton className="h-36 w-full" /></CardContent></Card>
+                </div>
+            </div>
+        </main>
+     </div>
+    )
+}
 
-  if (!startup) {
-    notFound();
+
+export default function StartupProfilePage({ params }: Props) {
+  const [startup, setStartup] = useState<Startup | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isAgentRunning, setIsAgentRunning] = useState(false);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    async function loadStartup() {
+      try {
+        setLoading(true);
+        const startupData = await getStartupBySlug(params.slug);
+        if (!startupData) {
+          notFound();
+        } else {
+          setStartup(startupData);
+        }
+      } catch (error) {
+        console.error("Failed to load startup", error);
+        notFound();
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadStartup();
+  }, [params.slug]);
+
+  const handleRunAgent = async () => {
+    if (!startup) return;
+    setIsAgentRunning(true);
+    try {
+      const result = await findAndVerifyMilestones({ startupName: startup.name });
+      const milestoneCount = result.milestones.length;
+      toast({
+        title: "Agent Finished",
+        description: `Found ${milestoneCount} new milestone(s) for ${startup.name}. In a real app, these would be added to the feed for verification.`,
+      });
+    } catch (error) {
+      console.error("Agent failed:", error);
+      toast({
+        variant: "destructive",
+        title: "Agent Error",
+        description: "The AI agent encountered an error. Please try again.",
+      });
+    } finally {
+      setIsAgentRunning(false);
+    }
+  };
+  
+  if (loading || !startup) {
+    return <ProfilePageSkeleton />
   }
 
   return (
@@ -50,7 +131,13 @@ export default async function StartupProfilePage({ params }: Props) {
                 </a>
             </div>
           </div>
-          <Button size="lg" className="mt-2">Claim this profile</Button>
+          <div className="flex flex-col items-end gap-2">
+             <Button size="lg" className="mt-2">Claim this profile</Button>
+             <Button size="sm" variant="outline" onClick={handleRunAgent} disabled={isAgentRunning}>
+                {isAgentRunning ? <Loader2 className="mr-2 animate-spin" /> : <Search className="mr-2" />}
+                Find Milestones
+            </Button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
