@@ -1,142 +1,503 @@
-
 {
-  "startups": [
+  "founders": [
     {
-      "name": "Toss",
-      "slug": "toss",
-      "logo": "https://placehold.co/100x100.png",
-      "sector": "Fintech",
-      "tagline": "Simplifying finance, one tap at a time.",
+      "name": "Jimin Park",
+      "slug": "jimin-park",
+      "avatar": "https://placehold.co/100x100/6366f1/ffffff?text=JP",
+      "title": "Indie Maker",
+      "project": "KoreanMate",
+      "tagline": "AI-powered Korean language learning for busy professionals",
+      "location": "Seoul, Korea",
+      "website": "https://koreanmate.com",
+      "twitter": "@jiminbuilds",
       "rank": 1,
-      "deltaWeekly": 3,
-      "heatScore": 98,
+      "deltaWeekly": 2,
+      "heatScore": 92,
+      "monthlyRevenue": 12000,
+      "foundedDate": "2023-03-15",
+      "isBootstrapped": true,
       "scoreComponents": {
-        "funding": 40,
-        "expansion": 20,
-        "hiring": 18,
-        "press": 10,
-        "users": 10
+        "revenue": 35,
+        "customers": 25,
+        "product": 15,
+        "community": 10,
+        "partnership": 4,
+        "recognition": 3
       },
       "_milestones": [
         {
-          "type": "funding",
-          "description": "Raised $410M in a Series G round, pushing valuation to $7.4B.",
-          "date": "2023-06-28",
+          "type": "revenue",
+          "description": "Hit $12K MRR after 18 months of building",
+          "date": "2024-08-01",
           "verified": true,
-          "link": "https://techcrunch.com/2021/06/28/toss-raises-410m-to-supercharge-its-super-app-ambitions/"
+          "link": "https://twitter.com/jiminbuilds/status/12345",
+          "value": 12000
         },
         {
-            "type": "hiring",
-            "description": "Surpassed 1000 employees.",
-            "date": "2023-05-15",
-            "verified": true,
-            "link": "https://www.realnews.com/viva-republica-expands-to-1000-employees"
+          "type": "customers",
+          "description": "Reached 500 paying subscribers, 95% retention rate",
+          "date": "2024-07-15",
+          "verified": true,
+          "link": "https://koreanmate.com/testimonials"
+        },
+        {
+          "type": "product",
+          "description": "Launched voice recognition feature using WebRTC",
+          "date": "2024-06-20",
+          "verified": true,
+          "link": "https://koreanmate.com/updates"
         }
       ]
     },
     {
-      "name": "Karrot",
-      "slug": "karrot",
-      "logo": "https://placehold.co/100x100.png",
-      "sector": "Marketplace",
-      "tagline": "Your friendly neighborhood marketplace.",
+      "name": "Sohee Kim",
+      "slug": "sohee-kim",
+      "avatar": "https://placehold.co/100x100/ec4899/ffffff?text=SK",
+      "title": "Solo Developer",
+      "project": "BuddyBoard",
+      "tagline": "Kanban boards for Korean small businesses",
+      "location": "Busan, Korea",
+      "website": "https://buddyboard.kr",
+      "twitter": "@soheeships",
       "rank": 2,
       "deltaWeekly": 1,
-      "heatScore": 95,
-      "scoreComponents": {
-        "funding": 35,
-        "expansion": 15,
-        "hiring": 15,
-        "press": 15,
-        "users": 15
-      },
-      "_milestones": [
-        {
-          "type": "funding",
-          "description": "Raised a $162M Series D at a $2.7B valuation.",
-          "date": "2023-08-13",
-          "verified": true,
-          "link": "https://techcrunch.com/2021/08/13/karrot-raises-162m-series-d-at-a-2-7b-valuation-for-its-hyperlocal-marketplace-app/"
-        }
-      ]
-    },
-    {
-      "name": "Musinsa",
-      "slug": "musinsa",
-      "logo": "https://placehold.co/100x100.png",
-      "sector": "E-commerce",
-      "tagline": "The future of fashion, curated for you.",
-      "rank": 3,
-      "deltaWeekly": -1,
-      "heatScore": 91,
-      "scoreComponents": {
-        "funding": 38,
-        "expansion": 22,
-        "hiring": 11,
-        "press": 10,
-        "users": 10
-      },
-      "_milestones": [
-        {
-          "type": "expansion",
-          "description": "Launched global stores in Japan and the US.",
-          "date": "2023-09-01",
-          "verified": true,
-          "link": "https://koreajoongangdaily.joins.com/2022/09/01/business/industry/musinsa-kfashion-online-platform/20220901183214319.html"
-        }
-      ]
-    },
-    {
-      "name": "Riiid",
-      "slug": "riiid",
-      "logo": "https://placehold.co/100x100.png",
-      "sector": "Edtech",
-      "tagline": "AI-powered solutions for personalized learning.",
-      "rank": 4,
-      "deltaWeekly": 0,
       "heatScore": 88,
+      "monthlyRevenue": 8500,
+      "foundedDate": "2023-01-10",
+      "isBootstrapped": true,
       "scoreComponents": {
-        "funding": 45,
-        "expansion": 10,
-        "hiring": 13,
-        "press": 15,
-        "users": 5
+        "revenue": 30,
+        "customers": 20,
+        "product": 18,
+        "community": 12,
+        "partnership": 5,
+        "recognition": 3
       },
       "_milestones": [
         {
-          "type": "funding",
-          "description": "Raised $175M from SoftBank's Vision Fund 2.",
-          "date": "2023-05-25",
+          "type": "revenue",
+          "description": "Crossed $8.5K MRR serving 300+ small businesses",
+          "date": "2024-08-10",
           "verified": true,
-          "link": "https://techcrunch.com/2021/05/25/south-koreas-ai-education-startup-riiid-lands-175m-from-softbanks-vision-fund-2/"
+          "link": "https://twitter.com/soheeships/status/67890",
+          "value": 8500
+        },
+        {
+          "type": "partnership",
+          "description": "Integration with KakaoTalk for team notifications",
+          "date": "2024-07-01",
+          "verified": true,
+          "link": "https://buddyboard.kr/integrations"
         }
       ]
     },
     {
-        "name": "CLASSUM",
-        "slug": "classum",
-        "logo": "https://placehold.co/100x100.png",
-        "sector": "Edtech",
-        "tagline": "The all-in-one platform for interactive learning.",
-        "rank": 5,
-        "deltaWeekly": 5,
-        "heatScore": 85,
-        "scoreComponents": {
-            "funding": 25,
-            "expansion": 15,
-            "hiring": 20,
-            "press": 10,
-            "users": 15
+      "name": "Junho Lee",
+      "slug": "junho-lee",
+      "avatar": "https://placehold.co/100x100/059669/ffffff?text=JL",
+      "title": "Bootstrapped Founder",
+      "project": "DeliveryTrack",
+      "tagline": "Package tracking for Korean e-commerce sellers",
+      "location": "Incheon, Korea",
+      "website": "https://deliverytrack.kr",
+      "rank": 3,
+      "deltaWeekly": 0,
+      "heatScore": 85,
+      "monthlyRevenue": 7200,
+      "foundedDate": "2022-11-01",
+      "isBootstrapped": true,
+      "scoreComponents": {
+        "revenue": 28,
+        "customers": 22,
+        "product": 15,
+        "community": 8,
+        "partnership": 8,
+        "recognition": 4
+      },
+      "_milestones": [
+        {
+          "type": "customers",
+          "description": "Onboarded 150th paying customer - local pottery seller",
+          "date": "2024-08-05",
+          "verified": true,
+          "link": "https://deliverytrack.kr/customers"
         },
-        "_milestones": [
-            {
-                "type": "funding",
-                "description": "Secured $11M in pre-Series B funding to expand its enterprise and university client base.",
-                "date": "2023-01-12",
-                "verified": true,
-                "link": "https://techcrunch.com/2023/01/12/classum-a-platform-for-interactive-learning-and-engagement-gets-11m-pre-series-b/"
-            }
-        ]
+        {
+          "type": "partnership",
+          "description": "Official integration with Coupang Marketplace API",
+          "date": "2024-06-15",
+          "verified": true,
+          "link": "https://developers.coupang.com/partners"
+        }
+      ]
+    },
+    {
+      "name": "Mina Choi",
+      "slug": "mina-choi",
+      "avatar": "https://placehold.co/100x100/f97316/ffffff?text=MC",
+      "title": "Side Project Queen",
+      "project": "K-Beauty Tracker",
+      "tagline": "Skincare routine tracker for K-beauty enthusiasts",
+      "location": "Daegu, Korea",
+      "website": "https://kbeautytrack.app",
+      "twitter": "@mina_builds",
+      "rank": 4,
+      "deltaWeekly": 3,
+      "heatScore": 82,
+      "monthlyRevenue": 5800,
+      "foundedDate": "2023-09-01",
+      "isBootstrapped": true,
+      "scoreComponents": {
+        "revenue": 25,
+        "customers": 18,
+        "product": 16,
+        "community": 15,
+        "partnership": 4,
+        "recognition": 4
+      },
+      "_milestones": [
+        {
+          "type": "community",
+          "description": "Hit 10K followers on Instagram sharing skincare tips",
+          "date": "2024-08-12",
+          "verified": true,
+          "link": "https://instagram.com/kbeautytrack"
+        },
+        {
+          "type": "revenue",
+          "description": "Reached $5.8K MRR through premium subscriptions",
+          "date": "2024-07-30",
+          "verified": true,
+          "link": "https://twitter.com/mina_builds/status/11111",
+          "value": 5800
+        }
+      ]
+    },
+    {
+      "name": "Taehyung Yoon",
+      "slug": "taehyung-yoon",
+      "avatar": "https://placehold.co/100x100/8b5cf6/ffffff?text=TY",
+      "title": "Indie Hacker",
+      "project": "StudyCafe Finder",
+      "tagline": "Find and book study spaces in Korean cities",
+      "location": "Daejeon, Korea", 
+      "website": "https://studycafe.kr",
+      "twitter": "@taehyung_codes",
+      "rank": 5,
+      "deltaWeekly": -1,
+      "heatScore": 79,
+      "monthlyRevenue": 4200,
+      "foundedDate": "2023-06-20",
+      "isBootstrapped": true,
+      "scoreComponents": {
+        "revenue": 22,
+        "customers": 20,
+        "product": 14,
+        "community": 10,
+        "partnership": 8,
+        "recognition": 5
+      },
+      "_milestones": [
+        {
+          "type": "customers",
+          "description": "Partnered with 200+ study cafes across 5 cities",
+          "date": "2024-08-01",
+          "verified": true,
+          "link": "https://studycafe.kr/partners"
+        },
+        {
+          "type": "recognition",
+          "description": "Featured in Naver's local business spotlight",
+          "date": "2024-07-10",
+          "verified": true,
+          "link": "https://blog.naver.com/studycafe-spotlight"
+        }
+      ]
+    },
+    {
+      "name": "Hyejin Nam",
+      "slug": "hyejin-nam",
+      "avatar": "https://placehold.co/100x100/dc2626/ffffff?text=HN",
+      "title": "Solo Founder",
+      "project": "FoodCost Calculator",
+      "tagline": "Profit margin calculator for Korean restaurant owners",
+      "location": "Gwangju, Korea",
+      "website": "https://foodcost.kr",
+      "rank": 6,
+      "deltaWeekly": 2,
+      "heatScore": 76,
+      "monthlyRevenue": 3400,
+      "foundedDate": "2023-12-01",
+      "isBootstrapped": true,
+      "scoreComponents": {
+        "revenue": 20,
+        "customers": 25,
+        "product": 12,
+        "community": 8,
+        "partnership": 6,
+        "recognition": 5
+      },
+      "_milestones": [
+        {
+          "type": "customers",
+          "description": "Helped 80 restaurant owners increase profit by 15%",
+          "date": "2024-08-08",
+          "verified": true,
+          "link": "https://foodcost.kr/testimonials"
+        },
+        {
+          "type": "product",
+          "description": "Added ingredient price tracking for 500+ items",
+          "date": "2024-07-25",
+          "verified": true,
+          "link": "https://foodcost.kr/updates"
+        }
+      ]
+    },
+    {
+      "name": "Seunghwan Kim",
+      "slug": "seunghwan-kim",
+      "avatar": "https://placehold.co/100x100/0ea5e9/ffffff?text=SK",
+      "title": "Weekend Builder",
+      "project": "Korean PDF Reader",
+      "tagline": "OCR tool for digitizing Korean handwritten documents",
+      "location": "Seoul, Korea",
+      "website": "https://koreanpdf.app",
+      "twitter": "@seunghwan_dev",
+      "rank": 7,
+      "deltaWeekly": 1,
+      "heatScore": 73,
+      "monthlyRevenue": 2800,
+      "foundedDate": "2024-01-15",
+      "isBootstrapped": true,
+      "scoreComponents": {
+        "revenue": 18,
+        "customers": 15,
+        "product": 20,
+        "community": 12,
+        "partnership": 4,
+        "recognition": 4
+      },
+      "_milestones": [
+        {
+          "type": "product",
+          "description": "Achieved 95% accuracy on handwritten Korean text",
+          "date": "2024-08-15",
+          "verified": true,
+          "link": "https://koreanpdf.app/accuracy"
+        },
+        {
+          "type": "revenue",
+          "description": "Hit $2.8K MRR in just 7 months",
+          "date": "2024-08-01",
+          "verified": true,
+          "link": "https://twitter.com/seunghwan_dev/status/22222",
+          "value": 2800
+        }
+      ]
+    },
+    {
+      "name": "Jiwoo Park",
+      "slug": "jiwoo-park",
+      "avatar": "https://placehold.co/100x100/eab308/ffffff?text=JP",
+      "title": "Digital Nomad",
+      "project": "Seoul Coworking",
+      "tagline": "Coworking space booking platform for Seoul",
+      "location": "Seoul, Korea",
+      "website": "https://seoulcoworking.space",
+      "twitter": "@jiwoo_nomad",
+      "rank": 8,
+      "deltaWeekly": -2,
+      "heatScore": 70,
+      "monthlyRevenue": 2100,
+      "foundedDate": "2023-08-10",
+      "isBootstrapped": true,
+      "scoreComponents": {
+        "revenue": 15,
+        "customers": 18,
+        "product": 14,
+        "community": 16,
+        "partnership": 4,
+        "recognition": 3
+      },
+      "_milestones": [
+        {
+          "type": "community",
+          "description": "Built Slack community of 800+ remote workers",
+          "date": "2024-07-20",
+          "verified": true,
+          "link": "https://seoulcoworking.space/community"
+        },
+        {
+          "type": "customers",
+          "description": "Facilitated 1000+ coworking bookings",
+          "date": "2024-06-30",
+          "verified": true,
+          "link": "https://seoulcoworking.space/stats"
+        }
+      ]
+    },
+    {
+      "name": "Youngmin Cho",
+      "slug": "youngmin-cho",
+      "avatar": "https://placehold.co/100x100/10b981/ffffff?text=YC",
+      "title": "Bootstrapped Builder",
+      "project": "Kimchi Timer",
+      "tagline": "Fermentation tracking app for traditional Korean foods",
+      "location": "Jeonju, Korea",
+      "website": "https://kimchitimer.app",
+      "rank": 9,
+      "deltaWeekly": 4,
+      "heatScore": 68,
+      "monthlyRevenue": 1800,
+      "foundedDate": "2024-03-01",
+      "isBootstrapped": true,
+      "scoreComponents": {
+        "revenue": 12,
+        "customers": 20,
+        "product": 15,
+        "community": 14,
+        "partnership": 4,
+        "recognition": 3
+      },
+      "_milestones": [
+        {
+          "type": "customers",
+          "description": "Featured by 50+ Korean home cooks on YouTube",
+          "date": "2024-08-10",
+          "verified": true,
+          "link": "https://kimchitimer.app/featured"
+        },
+        {
+          "type": "community",
+          "description": "Growing Instagram to 5K followers sharing recipes",
+          "date": "2024-07-28",
+          "verified": true,
+          "link": "https://instagram.com/kimchitimer"
+        }
+      ]
+    },
+    {
+      "name": "Eunji Lee",
+      "slug": "eunji-lee",
+      "avatar": "https://placehold.co/100x100/a855f7/ffffff?text=EL",
+      "title": "Side Hustler",
+      "project": "Hanbok Rental",
+      "tagline": "Online hanbok rental marketplace for special occasions",
+      "location": "Gyeongju, Korea",
+      "website": "https://hanbokrental.kr",
+      "twitter": "@eunji_hanbok",
+      "rank": 10,
+      "deltaWeekly": 0,
+      "heatScore": 65,
+      "monthlyRevenue": 1500,
+      "foundedDate": "2023-10-15",
+      "isBootstrapped": true,
+      "scoreComponents": {
+        "revenue": 10,
+        "customers": 22,
+        "product": 12,
+        "community": 12,
+        "partnership": 6,
+        "recognition": 3
+      },
+      "_milestones": [
+        {
+          "type": "customers",
+          "description": "Served 200+ customers for traditional ceremonies",
+          "date": "2024-08-05",
+          "verified": true,
+          "link": "https://hanbokrental.kr/reviews"
+        },
+        {
+          "type": "partnership",
+          "description": "Partnership with 15 local hanbok artisans",
+          "date": "2024-07-01",
+          "verified": true,
+          "link": "https://hanbokrental.kr/artisans"
+        }
+      ]
+    },
+    {
+      "name": "Donghyun Park",
+      "slug": "donghyun-park",
+      "avatar": "https://placehold.co/100x100/3b82f6/ffffff?text=DP",
+      "title": "Indie Developer",
+      "project": "Korea Weather API",
+      "tagline": "Developer-friendly Korean weather data service",
+      "location": "Ulsan, Korea",
+      "website": "https://koreaweather.dev",
+      "twitter": "@donghyun_dev",
+      "rank": 11,
+      "deltaWeekly": 1,
+      "heatScore": 62,
+      "monthlyRevenue": 1200,
+      "foundedDate": "2024-02-01",
+      "isBootstrapped": true,
+      "scoreComponents": {
+        "revenue": 8,
+        "customers": 15,
+        "product": 18,
+        "community": 12,
+        "partnership": 6,
+        "recognition": 3
+      },
+      "_milestones": [
+        {
+          "type": "product",
+          "description": "Launched v2 API with real-time typhoon tracking",
+          "date": "2024-08-12",
+          "verified": true,
+          "link": "https://koreaweather.dev/v2"
+        },
+        {
+          "type": "customers",
+          "description": "Serving 50+ Korean mobile apps with weather data",
+          "date": "2024-07-15",
+          "verified": true,
+          "link": "https://koreaweather.dev/customers"
+        }
+      ]
+    },
+    {
+      "name": "Sunhee Yoon", 
+      "slug": "sunhee-yoon",
+      "avatar": "https://placehold.co/100x100/f59e0b/ffffff?text=SY",
+      "title": "Solo Entrepreneur",
+      "project": "Korean Grammar Check",
+      "tagline": "AI-powered Korean writing assistant for students",
+      "location": "Suwon, Korea",
+      "website": "https://koreangrammar.app",
+      "rank": 12,
+      "deltaWeekly": 2,
+      "heatScore": 59,
+      "monthlyRevenue": 900,
+      "foundedDate": "2024-04-01",
+      "isBootstrapped": true,
+      "scoreComponents": {
+        "revenue": 6,
+        "customers": 18,
+        "product": 16,
+        "community": 10,
+        "partnership": 5,
+        "recognition": 4
+      },
+      "_milestones": [
+        {
+          "type": "customers",
+          "description": "Adopted by 20+ Korean universities for student writing",
+          "date": "2024-08-01",
+          "verified": true,
+          "link": "https://koreangrammar.app/universities"
+        },
+        {
+          "type": "recognition",
+          "description": "Won 'Best Educational Tool' at Seoul Startup Week",
+          "date": "2024-07-22",
+          "verified": true,
+          "link": "https://seoulstartupweek.com/winners"
+        }
+      ]
     }
   ]
 }

@@ -1,14 +1,15 @@
 import { Header } from "@/components/Header";
 import { LeaderboardTable } from "@/components/LeaderboardTable";
-import { getStartups, getTopMovers } from "@/lib/data";
+import { getFounders, getTopMovers } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowUp, Badge, Users, Info } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowUp, Badge, Users, Info, Plus, Target, DollarSign, Rocket } from "lucide-react";
 import Link from "next/link";
 import { DatabaseSeeder } from "@/components/DatabaseSeeder";
 
 
 export default async function Home() {
-  const startups = await getStartups();
+  const founders = await getFounders();
   const topMovers = await getTopMovers();
 
   return (
@@ -17,59 +18,124 @@ export default async function Home() {
       <main className="container mx-auto px-4 py-12 flex-grow">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-bold font-headline tracking-tight">
-            The Unwritten Stories of Korean Startups
+            Korean Indie Makers Making Real Money
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mt-4 max-w-3xl mx-auto">
-            FounderStories tracks the small wins and giant leaps of founders in real-time. This isn't just data. It's the journey.
+            Real founders. Real revenue. Real milestones. No VC hype, just bootstrapped builders 
+            sharing their honest journey from $0 to sustainable income.
           </p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" className="text-lg px-8">
+              <Link href="/submit">
+                <Plus className="w-5 h-5 mr-2" />
+                Share Your Milestone
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="text-lg px-8">
+              <Link href="#leaderboard">
+                <Target className="w-5 h-5 mr-2" />
+                See the Rankings
+              </Link>
+            </Button>
+          </div>
         </div>
+
+        {/* Value Props for Founders */}
+        <section className="mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="text-center p-6">
+              <DollarSign className="w-12 h-12 mx-auto mb-4 text-green-500" />
+              <h3 className="text-xl font-bold mb-2">Revenue Transparency</h3>
+              <p className="text-muted-foreground">
+                Real MRR numbers from Korean indie makers. See who's making $1K to $50K monthly.
+              </p>
+            </Card>
+            <Card className="text-center p-6">
+              <Users className="w-12 h-12 mx-auto mb-4 text-blue-500" />
+              <h3 className="text-xl font-bold mb-2">Founder Community</h3>
+              <p className="text-muted-foreground">
+                Connect with other Korean builders. Get customer intros and partnership opportunities.
+              </p>
+            </Card>
+            <Card className="text-center p-6">
+              <Rocket className="w-12 h-12 mx-auto mb-4 text-purple-500" />
+              <h3 className="text-xl font-bold mb-2">Growth Inspiration</h3>
+              <p className="text-muted-foreground">
+                Follow founders going from first sale to sustainable business. Real stories, real progress.
+              </p>
+            </Card>
+          </div>
+        </section>
 
         {topMovers.length > 0 && (
            <section className="mb-16">
            <h2 className="text-3xl font-bold font-headline mb-6 flex items-center">
-             <ArrowUp className="w-7 h-7 mr-3 text-accent" /> Top Movers
+             <ArrowUp className="w-7 h-7 mr-3 text-accent" /> Rising Makers
            </h2>
            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-             {topMovers.map((startup) => (
-               <Card key={startup.id} className="bg-card/50 hover:bg-card/90 transition-colors duration-300">
+             {topMovers.map((founder) => (
+               <Card key={founder.id} className="bg-card/50 hover:bg-card/90 transition-colors duration-300">
                  <CardHeader className="flex flex-row items-center justify-between pb-2">
-                   <CardTitle className="text-lg font-medium font-headline">{startup.name}</CardTitle>
+                   <CardTitle className="text-lg font-medium font-headline">{founder.name}</CardTitle>
                    <div className="flex items-center text-sm font-bold text-accent">
                       <ArrowUp className="h-4 w-4 mr-1" />
-                      {startup.deltaWeekly} spots
+                      +{founder.deltaWeekly}
                     </div>
                  </CardHeader>
                  <CardContent>
-                   <p className="text-sm text-muted-foreground">{startup.latestMilestone.description}</p>
+                   <p className="text-sm text-muted-foreground mb-2">{founder.project}</p>
+                   <p className="text-xs text-muted-foreground">{founder.latestMilestone?.description}</p>
                  </CardContent>
                </Card>
              ))}
            </div>
          </section>
         )}
-        <section className="mb-12">
+        
+        <section className="mb-12" id="leaderboard">
           <div className="mb-6 flex justify-between items-center">
             <div>
-              <h2 className="text-3xl font-bold font-headline">Leaderboard</h2>
-              <p className="text-muted-foreground mt-1">This is a living list, fueled by verified milestones from founders like you.</p>
+              <h2 className="text-3xl font-bold font-headline">Korean Indie Maker Rankings</h2>
+              <p className="text-muted-foreground mt-1">
+                Ranked by Heat Score: revenue growth, customer love, and product momentum. 
+                <Link href="/submit" className="text-primary hover:underline ml-1">Add your milestone →</Link>
+              </p>
             </div>
             <DatabaseSeeder />
           </div>
-          <LeaderboardTable startups={startups} />
+          <LeaderboardTable startups={founders} />
         </section>
 
         <section className="mb-16">
-          <Card className="bg-card/50">
+          <Card className="bg-gradient-to-r from-primary/10 to-accent/10 border-primary/20">
             <CardHeader>
-              <CardTitle className="font-headline flex items-center">
-                <Info className="w-5 h-5 mr-3 text-primary"/>
-                About FounderStories
+              <CardTitle className="font-headline flex items-center text-2xl">
+                <Info className="w-6 h-6 mr-3 text-primary"/>
+                For Korean Indie Makers, By Korean Indie Makers
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-muted-foreground">
-              <p>This isn't for VCs. It's for the founders, the makers, the ones in the arena.</p>
-              <p>We measure progress, not just hype. A new hire, a product launch, a country expansion—these are the milestones that matter. They tell the real story. By making these small wins visible and celebrating them, we create a different kind of status, a different kind of community.</p>
-              <p>This is an invitation. Share your journey. See the progress. Connect with others on the same path. Let's make something remarkable, together.</p>
+              <p className="text-lg">
+                <strong>이것은 투자자를 위한 것이 아닙니다.</strong> This is for the builders, the makers, the ones bootstrapping their dreams into reality.
+              </p>
+              <p>
+                We track what actually matters: your first paying customer, hitting $1K MRR, launching that feature you've been working on for months. 
+                Small wins that lead to big outcomes. Real progress, not press releases.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Button asChild className="flex-1">
+                  <Link href="/submit">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Share Your Story
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" className="flex-1">
+                  <Link href="mailto:founders@founderstories.dev">
+                    <Users className="w-4 h-4 mr-2" />
+                    Join Our Community
+                  </Link>
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </section>
@@ -77,7 +143,11 @@ export default async function Home() {
       </main>
       <footer className="py-8 border-t border-border/40">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>Built by a solo indie hacker. Follow the journey on <a href="https://x.com/levelsio" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">X (formerly Twitter)</a>.</p>
+          <p>
+            Built by Korean indie makers, for Korean indie makers. 
+            <Link href="/submit" className="text-primary hover:underline ml-1">Share your milestone</Link> or 
+            <a href="mailto:founders@founderstories.dev" className="text-primary hover:underline ml-1">get in touch</a>.
+          </p>
         </div>
       </footer>
     </div>
