@@ -4,6 +4,8 @@ import { getStartups, getTopMovers } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUp, Badge, Users, Info } from "lucide-react";
 import Link from "next/link";
+import { DatabaseSeeder } from "@/components/DatabaseSeeder";
+
 
 export default async function Home() {
   const startups = await getStartups();
@@ -46,9 +48,12 @@ export default async function Home() {
          </section>
         )}
         <section className="mb-12">
-          <div className="mb-6">
-            <h2 className="text-3xl font-bold font-headline">Leaderboard</h2>
-            <p className="text-muted-foreground mt-1">This is a living list, fueled by verified milestones from founders like you.</p>
+          <div className="mb-6 flex justify-between items-center">
+            <div>
+              <h2 className="text-3xl font-bold font-headline">Leaderboard</h2>
+              <p className="text-muted-foreground mt-1">This is a living list, fueled by verified milestones from founders like you.</p>
+            </div>
+            <DatabaseSeeder />
           </div>
           <LeaderboardTable startups={startups} />
         </section>
