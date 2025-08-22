@@ -10,6 +10,9 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, query, where, getDocs, limit } from 'firebase/firestore';
+
 
 const searchTool = ai.defineTool(
   {
@@ -110,13 +113,33 @@ const findAndVerifyMilestonesFlow = ai.defineFlow(
   async (input) => {
     const { output } = await milestoneFinderPrompt(input);
     
-    if (!output) {
+    if (!output || !output.milestones || output.milestones.length === 0) {
+      console.log(`No new milestones found for ${input.startupName}`);
       return { milestones: [] };
     }
     
-    console.log(`Found ${output.milestones.length} new milestones for ${input.startupName}`);
-    // In a real implementation, we would now save these milestones to the database.
-    // For now, we just return them.
+    const startupsRef = collection(db, "startups");
+    const q = query(startupsRef, where("name", "==", input.startupName), limit(1));
+    const startupSnapshot = await getDocs(q);
+
+    if (startupSnapshot.empty) {
+        throw new Error(`Startup "${input.startupName}" not found.`);
+    }
+    const startupId = startupSnapshot.docs[0].id;
+    const milestonesCollection = collection(db, `startups/${startupId}/milestones`);
+
+    for (const milestone of output.milestones) {
+        await addDoc(milestonesCollection, {
+            type: milestone.type,
+            description: milestone.description,
+            date: milestone.date,
+            link: milestone.proofLink,
+            verified: milestone.verified,
+        });
+        console.log(`Saved new milestone for ${input.startupName}: ${milestone.description}`);
+    }
+
+    console.log(`Found and saved ${output.milestones.length} new milestones for ${input.startupName}`);
     return output;
   }
 );

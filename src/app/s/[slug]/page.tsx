@@ -16,6 +16,7 @@ import { findAndVerifyMilestones } from "@/ai/flows/find-and-verify-milestones";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useRouter } from "next/navigation";
 
 type Props = {
   params: {
@@ -56,24 +57,26 @@ export default function StartupProfilePage({ params }: Props) {
   const [loading, setLoading] = useState(true);
   const [isAgentRunning, setIsAgentRunning] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
+
+  const loadStartup = async () => {
+    try {
+      setLoading(true);
+      const startupData = await getStartupBySlug(params.slug);
+      if (!startupData) {
+        notFound();
+      } else {
+        setStartup(startupData);
+      }
+    } catch (error) {
+      console.error("Failed to load startup", error);
+      notFound();
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    async function loadStartup() {
-      try {
-        setLoading(true);
-        const startupData = await getStartupBySlug(params.slug);
-        if (!startupData) {
-          notFound();
-        } else {
-          setStartup(startupData);
-        }
-      } catch (error) {
-        console.error("Failed to load startup", error);
-        notFound();
-      } finally {
-        setLoading(false);
-      }
-    }
     loadStartup();
   }, [params.slug]);
 
@@ -85,8 +88,12 @@ export default function StartupProfilePage({ params }: Props) {
       const milestoneCount = result.milestones.length;
       toast({
         title: "Agent Finished",
-        description: `Found ${milestoneCount} new milestone(s) for ${startup.name}. In a real app, these would be added to the feed for verification.`,
+        description: `Found and saved ${milestoneCount} new milestone(s) for ${startup.name}. The page will now refresh.`,
       });
+      // Refresh the page to show the new milestones
+      router.refresh();
+      await loadStartup();
+
     } catch (error) {
       console.error("Agent failed:", error);
       toast({
