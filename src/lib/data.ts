@@ -61,6 +61,11 @@ export const getFounderOptions = async (): Promise<{id: string, name: string}[]>
     return snapshot.docs.map(doc => ({ id: doc.id, name: doc.data().name as string }));
 }
 
+// Legacy exports for backward compatibility
+export const getStartups = getFounders;
+export const getStartupBySlug = getFounderBySlug;
+export const getStartupOptions = getFounderOptions;
+
 // Calculate Heat Score based on bootstrap metrics
 export const calculateHeatScore = (founder: Founder): number => {
     const { revenue, customers, product, community, partnership, recognition } = founder.scoreComponents;

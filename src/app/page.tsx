@@ -1,3 +1,5 @@
+"use client";
+
 import { Header } from "@/components/Header";
 import { LeaderboardTable } from "@/components/LeaderboardTable";
 import { getFounders, getTopMovers } from "@/lib/data";
@@ -6,11 +8,31 @@ import { Button } from "@/components/ui/button";
 import { ArrowUp, Badge, Users, Info, Plus, Target, DollarSign, Rocket } from "lucide-react";
 import Link from "next/link";
 import { DatabaseSeeder } from "@/components/DatabaseSeeder";
+import { useEffect, useState } from "react";
+import type { Founder } from "@/lib/types";
 
+export default function Home() {
+  const [founders, setFounders] = useState<Founder[]>([]);
+  const [topMovers, setTopMovers] = useState<Founder[]>([]);
+  const [loading, setLoading] = useState(true);
 
-export default async function Home() {
-  const founders = await getFounders();
-  const topMovers = await getTopMovers();
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const [foundersData, topMoversData] = await Promise.all([
+          getFounders(),
+          getTopMovers()
+        ]);
+        setFounders(foundersData);
+        setTopMovers(topMoversData);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+  }, []);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -67,7 +89,7 @@ export default async function Home() {
           </div>
         </section>
 
-        {topMovers.length > 0 && (
+{!loading && topMovers.length > 0 && (
            <section className="mb-16">
            <h2 className="text-3xl font-bold font-headline mb-6 flex items-center">
              <ArrowUp className="w-7 h-7 mr-3 text-accent" /> Rising Makers
@@ -103,7 +125,13 @@ export default async function Home() {
             </div>
             <DatabaseSeeder />
           </div>
-          <LeaderboardTable startups={founders} />
+          {loading ? (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground">Loading founders...</p>
+            </div>
+          ) : (
+            <LeaderboardTable startups={founders} />
+          )}
         </section>
 
         <section className="mb-16">
