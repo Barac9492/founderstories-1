@@ -10,7 +10,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import { db } from '@/lib/firebase';
+import { db } from '@/lib/firebase-admin';
 import { collection, addDoc, query, where, getDocs, limit } from 'firebase/firestore';
 
 const SubmitMilestoneInputSchema = z.object({

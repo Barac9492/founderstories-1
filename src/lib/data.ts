@@ -1,5 +1,5 @@
 import type { Startup, Milestone } from "./types";
-import { db } from "./firebase";
+import { db } from "./firebase-client";
 import { collection, getDocs, query, where, limit, orderBy, getDoc, doc } from "firebase/firestore";
 
 const startupsCollection = collection(db, 'startups');

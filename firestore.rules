@@ -1,22 +1,14 @@
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
-    
-    // Allow full read/write access for authenticated server-side operations
-    // This will allow our seedDatabase and findAndVerifyMilestones flows to work.
-    match /{document=**} {
-      allow read, write: if request.auth != null;
+
+    // Allow public read access to startups and their milestones for the leaderboard and profile pages
+    match /startups/{startupId}/{document=**} {
+      allow list, get: if true;
     }
 
-    // Allow public read access to startups and their milestones for the leaderboard
-    match /startups/{startupId} {
-      allow get, list: if true;
-    }
-    match /startups/{startupId}/milestones/{milestoneId} {
-      allow get, list: if true;
-    }
-
-    // Allow anyone to submit a new milestone for verification (create only)
+    // Allow anyone to submit a new milestone for verification
     match /startups/{startupId}/milestones/{milestoneId} {
       allow create: if true;
     }

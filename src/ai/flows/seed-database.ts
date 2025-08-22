@@ -8,7 +8,7 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { db } from '@/lib/firebase';
+import { db } from '@/lib/firebase-admin';
 import { collection, writeBatch, getDocs, doc } from 'firebase/firestore';
 import * as fs from 'fs/promises';
 import * as path from 'path';
