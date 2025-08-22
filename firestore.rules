@@ -1,0 +1,17 @@
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow public read access to startups and their milestones
+    match /startups/{startupId} {
+      allow read: if true;
+      allow write: if false; // Only allow writes from trusted server environments
+
+      match /milestones/{milestoneId} {
+        allow read: if true;
+        allow write: if false;
+      }
+    }
+  }
+}

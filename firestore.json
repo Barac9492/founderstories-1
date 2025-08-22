@@ -1,0 +1,142 @@
+
+{
+  "startups": [
+    {
+      "name": "Toss",
+      "slug": "toss",
+      "logo": "https://placehold.co/100x100.png",
+      "sector": "Fintech",
+      "tagline": "Simplifying finance, one tap at a time.",
+      "rank": 1,
+      "deltaWeekly": 3,
+      "heatScore": 98,
+      "scoreComponents": {
+        "funding": 40,
+        "expansion": 20,
+        "hiring": 18,
+        "press": 10,
+        "users": 10
+      },
+      "_milestones": [
+        {
+          "type": "funding",
+          "description": "Raised $410M in a Series G round, pushing valuation to $7.4B.",
+          "date": "2023-06-28",
+          "verified": true,
+          "link": "https://techcrunch.com/2021/06/28/toss-raises-410m-to-supercharge-its-super-app-ambitions/"
+        },
+        {
+            "type": "hiring",
+            "description": "Surpassed 1000 employees.",
+            "date": "2023-05-15",
+            "verified": true,
+            "link": "https://www.realnews.com/viva-republica-expands-to-1000-employees"
+        }
+      ]
+    },
+    {
+      "name": "Karrot",
+      "slug": "karrot",
+      "logo": "https://placehold.co/100x100.png",
+      "sector": "Marketplace",
+      "tagline": "Your friendly neighborhood marketplace.",
+      "rank": 2,
+      "deltaWeekly": 1,
+      "heatScore": 95,
+      "scoreComponents": {
+        "funding": 35,
+        "expansion": 15,
+        "hiring": 15,
+        "press": 15,
+        "users": 15
+      },
+      "_milestones": [
+        {
+          "type": "funding",
+          "description": "Raised a $162M Series D at a $2.7B valuation.",
+          "date": "2023-08-13",
+          "verified": true,
+          "link": "https://techcrunch.com/2021/08/13/karrot-raises-162m-series-d-at-a-2-7b-valuation-for-its-hyperlocal-marketplace-app/"
+        }
+      ]
+    },
+    {
+      "name": "Musinsa",
+      "slug": "musinsa",
+      "logo": "https://placehold.co/100x100.png",
+      "sector": "E-commerce",
+      "tagline": "The future of fashion, curated for you.",
+      "rank": 3,
+      "deltaWeekly": -1,
+      "heatScore": 91,
+      "scoreComponents": {
+        "funding": 38,
+        "expansion": 22,
+        "hiring": 11,
+        "press": 10,
+        "users": 10
+      },
+      "_milestones": [
+        {
+          "type": "expansion",
+          "description": "Launched global stores in Japan and the US.",
+          "date": "2023-09-01",
+          "verified": true,
+          "link": "https://koreajoongangdaily.joins.com/2022/09/01/business/industry/musinsa-kfashion-online-platform/20220901183214319.html"
+        }
+      ]
+    },
+    {
+      "name": "Riiid",
+      "slug": "riiid",
+      "logo": "https://placehold.co/100x100.png",
+      "sector": "Edtech",
+      "tagline": "AI-powered solutions for personalized learning.",
+      "rank": 4,
+      "deltaWeekly": 0,
+      "heatScore": 88,
+      "scoreComponents": {
+        "funding": 45,
+        "expansion": 10,
+        "hiring": 13,
+        "press": 15,
+        "users": 5
+      },
+      "_milestones": [
+        {
+          "type": "funding",
+          "description": "Raised $175M from SoftBank's Vision Fund 2.",
+          "date": "2023-05-25",
+          "verified": true,
+          "link": "https://techcrunch.com/2021/05/25/south-koreas-ai-education-startup-riiid-lands-175m-from-softbanks-vision-fund-2/"
+        }
+      ]
+    },
+    {
+        "name": "CLASSUM",
+        "slug": "classum",
+        "logo": "https://placehold.co/100x100.png",
+        "sector": "Edtech",
+        "tagline": "The all-in-one platform for interactive learning.",
+        "rank": 5,
+        "deltaWeekly": 5,
+        "heatScore": 85,
+        "scoreComponents": {
+            "funding": 25,
+            "expansion": 15,
+            "hiring": 20,
+            "press": 10,
+            "users": 15
+        },
+        "_milestones": [
+            {
+                "type": "funding",
+                "description": "Secured $11M in pre-Series B funding to expand its enterprise and university client base.",
+                "date": "2023-01-12",
+                "verified": true,
+                "link": "https://techcrunch.com/2023/01/12/classum-a-platform-for-interactive-learning-and-engagement-gets-11m-pre-series-b/"
+            }
+        ]
+    }
+  ]
+}
