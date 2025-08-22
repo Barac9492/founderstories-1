@@ -1,15 +1,21 @@
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
+    
+    // Allow public read access to the list of startups and individual startup documents
     match /startups/{startupId} {
-      allow read: if true;
-      allow write: if false; // Protect against client-side writes for now
+      allow read, list: if true;
+    }
 
-      match /milestones/{milestoneId} {
-      	allow read: if true;
-        allow create: if true; // Allow users to submit milestones
-        allow update, delete: if false; // Protect against updates/deletes
-      }
+    // Allow public read access to all milestones in any subcollection
+    match /startups/{startupId}/milestones/{milestoneId} {
+       allow read: if true;
+    }
+    
+    // Allow anyone to submit (create) a new milestone for any startup
+    match /startups/{startupId}/milestones/{document=**} {
+      allow create: if true;
     }
   }
 }
