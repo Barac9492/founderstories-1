@@ -24,6 +24,8 @@ const milestoneTypes = [
 export function MilestoneSubmissionForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [founderSlug, setFounderSlug] = useState<string>("")
   const [formData, setFormData] = useState({
     // Founder info
     founderName: "",
@@ -57,12 +59,31 @@ export function MilestoneSubmissionForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError(null)
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    setSubmitted(true)
-    setIsSubmitting(false)
+    try {
+      const response = await fetch('/api/submit-milestone', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setFounderSlug(result.founderSlug)
+        setSubmitted(true)
+      } else {
+        setError(result.error || 'Failed to submit milestone')
+      }
+    } catch (error) {
+      setError('Network error. Please check your connection and try again.')
+      console.error('Submission error:', error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   if (submitted) {
@@ -72,11 +93,23 @@ export function MilestoneSubmissionForm() {
           <CheckCircle2 className="w-16 h-16 mx-auto text-green-500 mb-4" />
           <h3 className="text-2xl font-bold mb-2">Milestone Submitted!</h3>
           <p className="text-muted-foreground mb-4">
-            Thank you for sharing your journey. We'll review your submission and add it to your founder profile within 24 hours.
+            Thank you for sharing your journey! Your milestone has been saved and will appear on the leaderboard soon.
           </p>
-          <Button onClick={() => setSubmitted(false)}>
-            Submit Another Milestone
-          </Button>
+          {founderSlug && (
+            <p className="text-sm text-muted-foreground mb-4">
+              Your founder profile: <Link href={`/f/${founderSlug}`} className="text-primary hover:underline">founderstories.dev/f/{founderSlug}</Link>
+            </p>
+          )}
+          <div className="flex gap-4 justify-center">
+            <Button onClick={() => setSubmitted(false)}>
+              Submit Another Milestone
+            </Button>
+            <Button variant="outline" asChild>
+              <Link href="/">
+                View Leaderboard
+              </Link>
+            </Button>
+          </div>
         </CardContent>
       </Card>
     )
@@ -98,6 +131,15 @@ export function MilestoneSubmissionForm() {
           </p>
         </div>
       </div>
+
+      {error && (
+        <Alert className="mb-6">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>
+            <strong>Error:</strong> {error}
+          </AlertDescription>
+        </Alert>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Founder Information */}
