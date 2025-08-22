@@ -8,8 +8,9 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { AlertCircle, CheckCircle2, Upload, Globe, Twitter, Github } from "lucide-react"
+import { AlertCircle, CheckCircle2, Upload, Globe, Twitter, Github, ArrowLeft } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import Link from "next/link"
 
 const milestoneTypes = [
   { value: "revenue", label: "Revenue Milestone", description: "Monthly recurring revenue, sales target hit" },
@@ -83,11 +84,19 @@ export function MilestoneSubmissionForm() {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold mb-2">Share Your Milestone</h1>
-        <p className="text-muted-foreground">
-          Every milestone matters. Share your progress and inspire other Korean indie makers.
-        </p>
+      <div className="mb-8">
+        <Button variant="ghost" asChild className="mb-4">
+          <Link href="/">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Homepage
+          </Link>
+        </Button>
+        <div className="text-center">
+          <h1 className="text-3xl font-bold mb-2">Share Your Milestone</h1>
+          <p className="text-muted-foreground">
+            Every milestone matters. Share your progress and inspire other Korean indie makers.
+          </p>
+        </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
